@@ -1,0 +1,45 @@
+base
+====
+
+A simple ansible role to deploy our basic packages and settings.
+
+Requirements
+------------
+
+
+Role Variables
+--------------
+
+
+Dependencies
+------------
+
+None.
+
+Example Playbook
+----------------
+
+For this example we will assume you have defined a host group *site* in the inventory file `hosts`.
+
+
+`site.yml`:
+
+```
+---
+
+    - hosts: site
+      roles:
+         - { role: jkirk.base }
+```
+
+To run this playbook you would do `ansible-playbook -i hosts site.yml`
+
+License
+-------
+
+MIT
+
+Author Information
+------------------
+
+Darshaka Pathirana - https://synpro.solutions
