@@ -1,0 +1,10 @@
+#!/bin/sh
+# HEADER: managed by ansible, do NOT edit manually!
+
+STATE=false
+pgrep mysqld >/dev/null 2>&1 && STATE=true
+
+cat << EOF
+{
+  "mysql_service": "$STATE"
+}

@@ -1,2 +1,70 @@
 ---
-# tasks file for ansible-role-base
+# NOTE: Ensure important packages we always want to have are present
+# and deploy basic grml-config for user root
+
+- name: Check for Debian/stretch
+  debug:
+    msg: "Debian release: {{ ansible_distribution_release }}"
+# failed_when: ansible_lsb.codename != "stretch"
+- name: Provide /etc/apt/sources.list
+  template: src=templates/apt/sources.list.j2 dest=/etc/apt/sources.list owner=root group=root mode=0644
+  register: sources_list
+- name: Run apt-get update
+  apt: update_cache=yes
+  when: sources_list.changed
+- name: Ensure base Debian package selection is installed
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - apt-dater-host
+    - apt-transport-https
+    - aptitude
+    - curl
+    - etckeeper
+    - ethtool
+    - git
+    - iotop
+    - man-db
+    - ldnsutils
+    - needrestart
+# Do not install, because proxmox conflicts with this package
+#    - netcat-openbsd
+    - ntp
+    - parted
+    - screen
+    - socat
+    - vim
+    - zsh
+- name: Ensure extended base Debian package selection is installed (for non-VMs)
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - smartmontools
+  when:
+    ansible_system_vendor != "QEMU"
+- name: Set vim as default editor (update-alternative)
+  alternatives:
+    name: editor
+    path: /usr/bin/vim.basic
+- name: Provide custom needrestart configuration to disable interactive mode
+  copy: src=files/needrestart/synpro.conf dest=/etc/needrestart/conf.d/synpro.conf owner=root group=root mode=0644
+- name: Check for systemd-sysv
+  shell: 'dpkg -l systemd-sysv | grep -e "^ii" -q'
+  register: systemd_sysv_installed
+  ignore_errors: yes
+  changed_when: False
+  check_mode: no
+- name: Install libpam-systemd on Debian/jessie and later systems
+  apt: name=libpam-systemd state=present
+  when: systemd_sysv_installed.rc == 0
+- include_tasks: grml-config.yml username=root
+- name: Create ansible facts.d directory
+  file: path=/etc/ansible/facts.d state=directory owner=root group=root mode=0755
+- name: Deploy custom ansible facts
+  copy: src=ansible_facts.d/services.fact dest=/etc/ansible/facts.d/services.fact owner=root group=root mode=0755
+
+# Two-space indents feel comfortable to me, but do whatever you like.
+# vim:ff=unix ts=2 sw=2 ai expandtab
+#
