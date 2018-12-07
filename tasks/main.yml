@@ -21,6 +21,7 @@
     - apt-transport-https
     - aptitude
     - curl
+    - dbus
     - etckeeper
     - ethtool
     - git
