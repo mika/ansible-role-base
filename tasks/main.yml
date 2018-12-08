@@ -35,6 +35,7 @@
     - parted
     - screen
     - socat
+    - tmux
     - vim
     - zsh
 - name: Ensure extended base Debian package selection is installed (for non-VMs)
