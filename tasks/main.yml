@@ -52,7 +52,8 @@
 - name: Install libpam-systemd on Debian/jessie and later systems
   apt: name=libpam-systemd state=present
   when: systemd_sysv_installed.rc == 0
-- include_tasks: grml-config.yml username=root
+- include_tasks:
+    file: grml-config.yml
 - name: Create ansible facts.d directory
   file: path=/etc/ansible/facts.d state=directory owner=root group=root mode=0755
 - name: Deploy custom ansible facts
