@@ -1,9 +1,0 @@
----
-
-- name: Check for Debian/stretch
-  debug:
-    msg: "Debian release: {{ ansible_distribution_release }}"
-# failed_when: ansible_lsb.codename != "stretch"
-- name: Provide /etc/apt/sources.list
-  template: src=templates/apt/sources.list.j2 dest=/etc/apt/sources.list owner=root group=root mode=0644
-  notify: apt-get update
