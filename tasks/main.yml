@@ -2,16 +2,7 @@
 # NOTE: Ensure important packages we always want to have are present
 # and deploy basic grml-config for user root
 
-- name: Check for Debian/stretch
-  debug:
-    msg: "Debian release: {{ ansible_distribution_release }}"
-# failed_when: ansible_lsb.codename != "stretch"
-- name: Provide /etc/apt/sources.list
-  template: src=templates/apt/sources.list.j2 dest=/etc/apt/sources.list owner=root group=root mode=0644
-  register: sources_list
-- name: Run apt-get update
-  apt: update_cache=yes
-  when: sources_list.changed
+- include_tasks: apt-update.yml
 - name: Ensure base Debian package selection is installed
   apt:
     name: "{{ item }}"
