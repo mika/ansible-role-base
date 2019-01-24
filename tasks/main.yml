@@ -29,8 +29,8 @@
     - man-db
     - ldnsutils
     - needrestart
-# Do not install, because proxmox conflicts with this package
-#    - netcat-openbsd
+    # Do not install, because proxmox conflicts with this package
+    # - netcat-openbsd
     - ntp
     - parted
     - screen
@@ -55,9 +55,9 @@
 - name: Check for systemd-sysv
   shell: 'dpkg -l systemd-sysv | grep -e "^ii" -q'
   register: systemd_sysv_installed
-  ignore_errors: yes
-  changed_when: False
-  check_mode: no
+  ignore_errors: true
+  changed_when: false
+  check_mode: false
 - name: Install libpam-systemd on Debian/jessie and later systems
   apt: name=libpam-systemd state=present
   when: systemd_sysv_installed.rc == 0
