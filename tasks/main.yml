@@ -12,36 +12,34 @@
 - meta: flush_handlers
 - name: Ensure base Debian package selection is installed
   apt:
-    name: "{{ item }}"
+    name:
+      - apt-dater-host
+      - apt-transport-https
+      - aptitude
+      - curl
+      - dbus
+      - etckeeper
+      - ethtool
+      - git
+      - iotop
+      - man-db
+      - ldnsutils
+      - needrestart
+      # Do not install, because proxmox conflicts with this package
+      # - netcat-openbsd
+      - ntp
+      - parted
+      - screen
+      - socat
+      - tmux
+      - vim
+      - zsh
     state: present
-  with_items:
-    - apt-dater-host
-    - apt-transport-https
-    - aptitude
-    - curl
-    - dbus
-    - etckeeper
-    - ethtool
-    - git
-    - iotop
-    - man-db
-    - ldnsutils
-    - needrestart
-    # Do not install, because proxmox conflicts with this package
-    # - netcat-openbsd
-    - ntp
-    - parted
-    - screen
-    - socat
-    - tmux
-    - vim
-    - zsh
 - name: Ensure extended base Debian package selection is installed (for non-VMs)
   apt:
-    name: "{{ item }}"
+    name:
+      - smartmontools
     state: present
-  with_items:
-    - smartmontools
   when:
     ansible_system_vendor != "QEMU"
 - name: Set vim as default editor (update-alternative)
@@ -56,9 +54,13 @@
   ignore_errors: true
   changed_when: false
   check_mode: false
-- name: Install libpam-systemd on Debian/jessie and later systems
-  apt: name=libpam-systemd state=present
-  when: systemd_sysv_installed.rc == 0
+- name: Install libpam-systemd on Debian/jessie and later systems (with systemd-sysv)
+  apt:
+    name:
+      - libpam-systemd
+    state: present
+  when:
+    systemd_sysv_installed.rc == 0
 - include_tasks:
     file: grml-config.yml
 - name: Create ansible facts.d directory
