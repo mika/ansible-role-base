@@ -61,8 +61,6 @@
     state: present
   when:
     systemd_sysv_installed.rc == 0
-- include_tasks:
-    file: grml-config.yml
 - name: Create ansible facts.d directory
   file: path=/etc/ansible/facts.d state=directory owner=root group=root mode=0755
 - name: Deploy custom ansible facts
