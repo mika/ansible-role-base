@@ -13,6 +13,7 @@
 - name: Ensure base Debian package selection is installed
   apt:
     name:
+      - acl
       - apt-dater-host
       - apt-transport-https
       - aptitude
@@ -21,14 +22,17 @@
       - etckeeper
       - ethtool
       - git
+      - htop
       - iotop
-      - man-db
       - ldnsutils
+      - man-db
+      - moreutils
       - needrestart
       # Do not install, because proxmox conflicts with this package
       # - netcat-openbsd
       - ntp
       - parted
+      - psmisc
       - screen
       - socat
       - tmux
