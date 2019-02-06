@@ -3,3 +3,5 @@
 
 - name: apt-get update
   apt: update_cache=yes
+- name: ssh restart
+  service: name=ssh state=restarted

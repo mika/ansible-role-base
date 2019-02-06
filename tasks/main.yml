@@ -6,6 +6,14 @@
   debug:
     msg: "Debian release: {{ ansible_distribution_release }}"
 # failed_when: ansible_lsb.codename != "stretch"
+- name: Check if /etc/ssh/sshd_config exists
+  stat:
+    path: /etc/ssh/sshd_config
+  register: sshd_config
+- name: Disable ssh root login with password
+  lineinfile: dest=/etc/ssh/sshd_config regexp='^PermitRootLogin' line='PermitRootLogin without-password'
+  when: sshd_config.stat.exists == true
+  notify: ssh restart
 - name: Provide /etc/apt/sources.list
   template: src=templates/apt/sources.list.j2 dest=/etc/apt/sources.list owner=root group=root mode=0644
   notify: apt-get update
