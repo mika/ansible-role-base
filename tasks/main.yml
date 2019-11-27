@@ -11,8 +11,8 @@
     path: /etc/ssh/sshd_config
   register: sshd_config
 - name: Disable ssh root login with password
-  lineinfile: dest=/etc/ssh/sshd_config regexp='^PermitRootLogin' line='PermitRootLogin without-password'
-  when: sshd_config.stat.exists == true
+  lineinfile: dest=/etc/ssh/sshd_config regexp='^PermitRootLogin' state=absent
+  when: sshd_config.stat.exists
   notify: ssh restart
 - name: Provide /etc/apt/sources.list
   template: src=templates/apt/sources.list.j2 dest=/etc/apt/sources.list owner=root group=root mode=0644
