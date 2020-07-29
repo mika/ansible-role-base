@@ -1,10 +1,18 @@
 #!/bin/sh
 # HEADER: managed by ansible, do NOT edit manually!
 
-STATE=false
-pgrep mysqld >/dev/null 2>&1 && STATE=true
+MYSQL_STATE=false
+pgrep mysqld >/dev/null 2>&1 && MYSQL_STATE=true
+
+APACHE_STATE=false
+pgrep -f /usr/sbin/apache2 >/dev/null 2>&1 && APACHE_STATE=true
+
+PHPFPM_STATE=false
+pgrep -f 'php-fpm: pool' >/dev/null 2>&1 && PHPFPM_STATE=true
 
 cat << EOF
 {
-  "mysql_service": "$STATE"
+  "apache_service": "${APACHE_STATE}",
+  "mysql_service": "${MYSQL_STATE}",
+  "phpfpm_service": "${PHPFPM_STATE}"
 }
