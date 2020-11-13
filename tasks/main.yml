@@ -41,9 +41,17 @@
       - screen
       - socat
       - tmux
+      - unzip
       - vim
       - zsh
     state: present
+- name: Ensure extended base Debian package selection is installed (for VMs)
+  apt:
+    name:
+      - qemu-guest-agent
+    state: present
+  when:
+    ansible_system_vendor == "QEMU"
 - name: Ensure extended base Debian package selection is installed (for non-VMs)
   apt:
     name:
