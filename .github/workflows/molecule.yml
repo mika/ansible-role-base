@@ -1,0 +1,39 @@
+name: Ansible Molecule
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '42 2 * * *'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: Run molecule lint
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v2
+      with:
+        path: "${{ github.repository }}"
+
+    - name: Run molecule lint
+      uses: robertdebock/molecule-action@2.6.3
+      with:
+        command: lint
+
+  test:
+    runs-on: ubuntu-latest
+    name: Run molecule test
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v2
+      with:
+        path: "${{ github.repository }}"
+    - name: Run molecule test
+      uses: robertdebock/molecule-action@2.6.3
+      with:
+        image: debian
+        tag: buster
+        command: test
