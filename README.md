@@ -10,8 +10,7 @@ Requirements
 Default Role Variables
 ----------------------
 
-```
-
+```yaml
 # The Debian mirror which is used in the sources.list file
 base_debian_mirror: http://deb.debian.org/debian
 # If the Debian distribution is not jessie, 'backports' are enabled by default
@@ -50,4 +49,4 @@ MIT
 Author Information
 ------------------
 
-Darshaka Pathirana - https://synpro.solutions
+Darshaka Pathirana - <https://synpro.solutions>
