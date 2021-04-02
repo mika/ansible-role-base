@@ -16,3 +16,4 @@ cat << EOF
   "mysql_service": "${MYSQL_STATE}",
   "phpfpm_service": "${PHPFPM_STATE}"
 }
+EOF
