@@ -4,4 +4,8 @@ deb {{ base_debian_mirror }} {{ ansible_distribution_release }} main contrib non
 {% if ansible_distribution_release != 'jessie' and base_enable_backports %}
 deb {{ base_debian_mirror }} {{ ansible_distribution_release }}-backports main contrib non-free
 {% endif %}
+{% if ansible_distribution_release == 'bullseye' or ansible_distribution_release == 'bookworm' %}
+deb http://security.debian.org/debian-security {{ ansible_distribution_release }}-security main contrib non-free
+{% else %}
 deb http://security.debian.org {{ ansible_distribution_release }}/updates main contrib non-free
+{% endif %}
