@@ -2,7 +2,9 @@
 # HEADER: managed by ansible, do NOT edit manually!
 
 MYSQL_STATE=false
-pgrep mysqld >/dev/null 2>&1 && MYSQL_STATE=true
+if pgrep mysqld >/dev/null 2>&1 || pgrep mariadbd >/dev/null 2>&1 ; then
+  MYSQL_STATE=true
+fi
 
 APACHE_STATE=false
 pgrep -f /usr/sbin/apache2 >/dev/null 2>&1 && APACHE_STATE=true
