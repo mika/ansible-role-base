@@ -1,11 +1,15 @@
 base
 ====
 
+![Lint Code Base](https://github.com/jkirk/ansible-role-base/actions/workflows/linter.yml/badge.svg)
+![Ansible Molecule](https://github.com/jkirk/ansible-role-base/actions/workflows/molecule.yml/badge.svg)
+
 A simple ansible role to deploy our basic packages and settings.
 
 Requirements
 ------------
 
+None.
 
 Default Role Variables
 ----------------------
