@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        ansible-version: ["2.10", "2.11"]
+        ansible-version: ["2.10", "2.11", "4.9"]
 
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
