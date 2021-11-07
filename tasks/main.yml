@@ -15,6 +15,7 @@
   notify: apt-get update
   when: ansible_distribution == 'Debian'
 - meta: flush_handlers
+
 - name: Ensure base Debian package selection is installed
   apt:
     name:
@@ -34,7 +35,6 @@
       - needrestart
       # Do not install, because proxmox conflicts with this package
       # - netcat-openbsd
-      - ntp
       - parted
       - psmisc
       - screen
@@ -51,6 +51,15 @@
       - apt-transport-https
     state: present
   when: ansible_distribution_release == 'stretch'
+
+- name: Install ntp client / daemon
+  apt:
+    name:
+      - "{{ base_ntp_package }}"
+    state: present
+  when:
+    - base_ntp_package is defined
+    - base_ntp_package | length > 0
 
 - name: Ensure extended base Debian package selection is installed (for VMs)
   apt:
