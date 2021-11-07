@@ -20,7 +20,6 @@
     name:
       - acl
       - apt-dater-host
-      - apt-transport-https
       - aptitude
       - curl
       - dbus
@@ -45,6 +44,14 @@
       - vim
       - zsh
     state: present
+
+- name: Install apt-transport-https (for Debian/stretch)
+  apt:
+    name:
+      - apt-transport-https
+    state: present
+  when: ansible_distribution_release == 'stretch'
+
 - name: Ensure extended base Debian package selection is installed (for VMs)
   apt:
     name:
