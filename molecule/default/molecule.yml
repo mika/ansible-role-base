@@ -1,20 +1,12 @@
 ---
 dependency:
   name: galaxy
-lint: |
-  set -e
-  yamllint tasks
 driver:
   name: docker
 platforms:
-  - name: debian_10
-    image: geerlingguy/docker-debian10-ansible
-    pre_build_image: true
-    container_default_behavior: no_defaults
-  - name: debian_11
+  - name: debian11
     image: geerlingguy/docker-debian11-ansible
     pre_build_image: true
-    container_default_behavior: no_defaults
 provisioner:
   name: ansible
 verifier:

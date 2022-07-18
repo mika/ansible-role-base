@@ -5,3 +5,6 @@
     - name: "Include ansible-role-base"
       include_role:
         name: "ansible-role-base"
+      vars:
+        base_ntp_package: 'chrony'
+        base_ntp_server: 'time.example.com prefer iburst'
