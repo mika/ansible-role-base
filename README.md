@@ -14,15 +14,7 @@ None.
 Default Role Variables
 ----------------------
 
-```yaml
-# The Debian mirror which is used in the sources.list file
-base_debian_mirror: http://deb.debian.org/debian
-# If the Debian distribution is not jessie, 'backports' are enabled by default
-base_enable_backports: True
-# Set the ntp package to be installed (e.g. chrony or systemd-timesyncd)
-# If no ntp package should be installed set an empty string (base_ntp_package: '')
-base_ntp_package: "ntp"
-```
+Role variables are set and documented in [`defaults/main.yml`](defaults/main.yml).
 
 Dependencies
 ------------
