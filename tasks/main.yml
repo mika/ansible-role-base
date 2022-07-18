@@ -61,6 +61,16 @@
     - base_ntp_package is defined
     - base_ntp_package | length > 0
 
+- name: Deploy ntp client configuration (chrony.conf only)
+  template:
+    src: chrony/chrony.conf.j2
+    dest: /etc/chrony/chrony.conf
+    mode: 0664
+    owner: root
+    group: root
+  when:
+    base_ntp_package == "chrony"
+
 - name: Ensure extended base Debian package selection is installed (for VMs)
   apt:
     name:

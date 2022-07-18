@@ -57,13 +57,20 @@ We use iburst by default. I think this is OK. From ntp.conf(5):
 
 Use server instead of pool if no round-robin DNS is involved, though.
 
-For `chrony` it is `/etc/chrony.conf`:
+For `chrony` it is `/etc/chrony/chrony.conf` or a `.conf` file in `/etc/chrony/chrony.d/` (if `confdir` is defined in `/etc/chrony/chrony.conf` (the default since Debian/bullseye and later)):
 
 ```text
+# Set NTP server which can be used as a time source, _prefer_ this source over sources without the prefer option and start with a burst of 4-8 requests in order to make the first update of the clock sooner (iburst)
 server time.example.com prefer iburst
 
 # Allow NTP client access from local network.
 # allow 192.168.7.0/24
+
+# Allow NTP client access from localhost (i.e. for Prometheus node_exporter)
+allow 127/8
+
+# Specify the location of the Samba ntp_signd socket when it is running as a Domain Controller (DC)
+# ntpsigndsocket /var/lib/samba/ntp_signd/
 ```
 
 Which NTP Daemon?
