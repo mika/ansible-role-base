@@ -7,7 +7,7 @@
   tasks:
   - name: Deploy chrony with server configuration
     copy:
-      src: 'chrony.server.example.conf'
+      src: 'chrony.{{ ansible_distribution_release }}.example.conf'
       dest: '/etc/chrony/chrony.conf'
       mode: 0664
       owner: root

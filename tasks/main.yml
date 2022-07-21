@@ -63,13 +63,19 @@
 
 - name: Deploy ntp client configuration (chrony.conf only)
   template:
-    src: chrony/chrony.conf.j2
+    src: "chrony/chrony.{{ ansible_distribution_release }}.conf.j2"
     dest: /etc/chrony/chrony.conf
     mode: 0664
     owner: root
     group: root
   when:
     base_ntp_package == "chrony"
+  notify: chrony restart
+
+- name: Make sure ntp service is started
+  service:
+    name: "{{ base_ntp_package }}"
+    state: started
 
 - name: Ensure extended base Debian package selection is installed (for VMs)
   apt:
