@@ -14,11 +14,12 @@ base_enable_backports: false
 #
 base_ntp_package: "ntp"
 
-# Allow NTP client access from the given network.
+# Allow NTP client access from the given list of networks
 # We allow NTP client access from localhost by default so Prometheus node_exporter can access the NTP server.
 # Note: currently only works if base_ntp_package is set to 'chrony'
 #
-base_ntp_allow: "127/8"
+base_ntp_allow:
+  - "127/8"
 
 # Set NTP server which can be used as a time source (server),
 # prefer this source over sources without the prefer option (prefer) and
@@ -30,4 +31,4 @@ base_ntp_allow: "127/8"
 # Specify the location of the Samba ntp_signd socket when it is running as a Domain Controller (DC).
 # Note: currently only works if base_ntp_package is set to 'chrony'
 #
-# base_ntp_ntpsigndsocket: "/var/lib/samba/ntp_signd/"
+# base_ntp_ntpsigndsocket: "/var/lib/samba/ntp_signd"

@@ -29,8 +29,10 @@ rtcsync
 makestep 1 3
 
 {% if base_ntp_allow is defined %}
-# Allow NTP client access from given network
-allow {{ base_ntp_allow }}
+# Allow NTP client access from given network(s)
+{% for ntp_allow in base_ntp_allow %}
+allow {{ ntp_allow }}
+{% endfor %}
 #
 {% endif %}
 {% if base_ntp_server is defined %}

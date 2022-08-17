@@ -1,0 +1,23 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: Deploy chrony with server configuration
+    copy:
+      src: 'chrony.{{ ansible_distribution_release }}.example.conf'
+      dest: '/etc/chrony/chrony.conf'
+      mode: 0664
+      owner: root
+      group: root
+    register: chrony_server_example_conf
+    check_mode: true
+    diff: true
+
+  - name: Assert generated default chrony with server configuration
+    assert:
+      that:
+        - not chrony_server_example_conf.changed
+      msg: 'Unexpected change in /etc/chrony/chrony.conf'

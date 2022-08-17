@@ -62,7 +62,7 @@ server time.example.com prefer iburst
 allow 127/8
 
 # Specify the location of the Samba ntp_signd socket when it is running as a Domain Controller (DC)
-# ntpsigndsocket /var/lib/samba/ntp_signd/
+# ntpsigndsocket /var/lib/samba/ntp_signd
 ```
 
 Which NTP Daemon?
