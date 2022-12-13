@@ -12,10 +12,14 @@ pgrep -f /usr/sbin/apache2 >/dev/null 2>&1 && APACHE_STATE=true
 PHPFPM_STATE=false
 pgrep -f 'php-fpm: pool' >/dev/null 2>&1 && PHPFPM_STATE=true
 
+SAMBA_STATE=false
+pgrep -f /usr/sbin/smbd >/dev/null 2>&1 && SAMBA_STATE=true
+
 cat << EOF
 {
   "apache_service": "${APACHE_STATE}",
   "mysql_service": "${MYSQL_STATE}",
-  "phpfpm_service": "${PHPFPM_STATE}"
+  "phpfpm_service": "${PHPFPM_STATE}",
+  "samba_service": "${SAMBA_STATE}"
 }
 EOF
