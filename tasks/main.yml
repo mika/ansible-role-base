@@ -95,7 +95,7 @@
   alternatives:
     name: editor
     path: /usr/bin/vim.basic
-- name: Provide custom needrestart configuration to disable interactive mode
+- name: Provide custom needrestart configuration
   copy: src=files/needrestart/synpro.conf dest=/etc/needrestart/conf.d/synpro.conf owner=root group=root mode=0644
 - name: Check for systemd-sysv
   shell: 'dpkg -l systemd-sysv | grep -e "^ii" -q'
