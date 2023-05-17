@@ -9,6 +9,10 @@ base_debian_mirror: http://deb.debian.org/debian
 #
 base_enable_backports: false
 
+# Debian Extended Long Term Support repository is enabled by default,
+# if a supported Debian release is detected by ansible
+base_enable_elts: true
+
 # Set the ntp package to be installed (e.g. chrony or systemd-timesyncd).
 # If no ntp package should be installed set an empty string (base_ntp_package: '')
 #

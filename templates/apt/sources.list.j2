@@ -1,11 +1,60 @@
 # {{ ansible_managed }}
 # Debian repositories:
+{% if ansible_distribution_release == 'wheezy' %}
+# WARN: EOL since 2016-04-25 (main), 2018-05-31 (LTS) + 2020-06-30 (ELTS)
+deb http://archive.debian.org/debian wheezy main contrib non-free
+{% elif ansible_distribution_release == 'jessie' %}
+# NOTE: EOL since 2018-06-17 (main), 2020-06-30 (LTS), currently covered only by ELTS (until 2025-06-30)
+deb http://archive.debian.org/debian jessie main contrib non-free
+{% elif ansible_distribution_release == 'stretch' %}
+# NOTE: EOL since 2020-07-18 (main), 2022-07-01 (LTS), currently covered only by ELTS (until 2027-06-30)
+deb http://archive.debian.org/debian stretch main contrib non-free
+{% elif ansible_distribution_release == 'buster' or ansible_distribution_release == 'bullseye' %}
 deb {{ base_debian_mirror }} {{ ansible_distribution_release }} main contrib non-free
-{% if ansible_distribution_release != 'jessie' and base_enable_backports %}
+{% else %}{# ansible_distribution_release == 'wheezy' #}
+deb {{ base_debian_mirror }} {{ ansible_distribution_release }} main contrib non-free-firmware
+{% endif %}{# ansible_distribution_release == 'wheezy' #}
+{% if base_enable_backports %}
+{% if ansible_distribution_release == 'wheezy' %}
+# WARN: backports for wheezy was enabled but is unsupported
+{% elif ansible_distribution_release == 'jessie' %}
+# WARN: EOL since 2018-06-17 (main)
+deb http://archive.debian.org/debian jessie-backports main contrib non-free
+{% elif ansible_distribution_release == 'stretch' %}
+# NOTE: EOL since 2020-07-18 (main)
+deb http://archive.debian.org/debian stretch-backports main contrib non-free'
+{% elif ansible_distribution_release == 'buster' or ansible_distribution_release == 'bullseye' %}
 deb {{ base_debian_mirror }} {{ ansible_distribution_release }}-backports main contrib non-free
-{% endif %}
-{% if ansible_distribution_release == 'bullseye' or ansible_distribution_release == 'bookworm' %}
-deb http://security.debian.org/debian-security {{ ansible_distribution_release }}-security main contrib non-free
-{% else %}
-deb http://security.debian.org {{ ansible_distribution_release }}/updates main contrib non-free
-{% endif %}
+{% else %}{# ansible_distribution_release == 'wheezy' #}
+deb {{ base_debian_mirror }} {{ ansible_distribution_release }}-backports main contrib non-free-firmware
+{% endif %}{# ansible_distribution_release == 'wheezy' #}
+{% endif %}{# base_enable_backports #}
+{% if ansible_distribution_release == 'wheezy' %}
+# WARN: EOL since 2016-04-25 (main), 2018-05-31 (LTS) + 2020-06-30 (ELTS)
+deb http://archive.debian.org/debian-security/ wheezy/updates main contrib non-free
+{% elif ansible_distribution_release == 'jessie' %}
+# NOTE: EOL since 2018-06-17 (main), 2020-06-30 (LTS), currently covered only by ELTS
+deb http://archive.debian.org/debian-security jessie/updates main contrib non-free
+{% elif ansible_distribution_release == 'stretch' %}
+# NOTE: EOL since 2020-07-18 (main), 2022-07-01 (LTS), currently covered only by ELTS
+deb http://archive.debian.org/debian-security stretch/updates main contrib non-free
+{% elif ansible_distribution_release == 'buster' %}
+# NOTE: EOL since 2022-09-10, currently covered by LTS + ELTS
+deb http://security.debian.org buster/updates main contrib non-free
+{% elif ansible_distribution_release == 'bullseye' %}
+deb http://security.debian.org/debian-security bullseye-security main contrib non-free
+{% else %}{# ansible_distribution_release == 'wheezy' #}
+deb http://security.debian.org/debian-security {{ ansible_distribution_release }}-security main contrib non-free-firmware
+{% endif %}{# ansible_distribution_release == 'wheezy' #}
+{% if base_enable_elts %}
+{% if ansible_distribution_release == 'wheezy' %}
+# Extended Long Term Support (ELTS, until 2020-06-30, see https://wiki.debian.org/LTS/Extended)
+deb http://deb.freexian.com/extended-lts wheezy-lts main contrib non-free
+{% elif ansible_distribution_release == 'jessie' %}
+# Extended Long Term Support (ELTS, until 2025-06-30, see https://wiki.debian.org/LTS/Extended)
+deb http://deb.freexian.com/extended-lts jessie-lts main contrib non-free
+{% elif ansible_distribution_release == 'stretch' %}
+# Extended Long Term Support (ELTS, until 2027-06-30, see https://wiki.debian.org/LTS/Extended)
+deb http://deb.freexian.com/extended-lts stretch-lts main contrib non-free
+{% endif %}{# ansible_distribution_release == 'wheezy' #}
+{% endif %}{# base_enable_elts #}
