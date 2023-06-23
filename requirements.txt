@@ -1,4 +1,5 @@
 ansible
-ansible-lint
-molecule[docker,lint]
+ansible-lint==6.16.2
+molecule
+molecule-plugins[docker]
 yamllint
