@@ -5,7 +5,7 @@ galaxy_info:
   description: A simple ansible role to deploy our basic packages and settings.
   company: SynPro Solutions GmbH
   role_name: base
-  namespace: synpro
+  namespace: jkirk
 
   license: MIT
 

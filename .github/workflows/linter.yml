@@ -1,3 +1,4 @@
+---
 name: Lint Code Base
 
 # Run this workflow every time a new commit pushed to your repository
@@ -19,7 +20,7 @@ jobs:
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       # Checks out a copy of your repository on the ubuntu-latest machine
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           # Full git history is needed to get a proper list of changed files within `super-linter`
           fetch-depth: 0
@@ -27,7 +28,7 @@ jobs:
 
       # Runs the Super-Linter action
       - name: Lint Code Base
-        uses: docker://ghcr.io/github/super-linter:slim-v4
+        uses: super-linter/super-linter/slim@v5
         env:
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,10 +1,11 @@
 ---
 - name: Converge
   hosts: all
-  tasks:
-    - name: "Include ansible-role-base"
-      include_role:
-        name: "ansible-role-base"
-      vars:
-        base_ntp_package: 'chrony'
-        base_ntp_server: 'time.example.com prefer iburst'
+  become: true
+  vars:
+    base_ntp_enable: false
+    base_ntp_package: 'chrony'
+    base_ntp_server: 'time.example.com prefer iburst'
+
+  roles:
+    - role: jkirk.base
