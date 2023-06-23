@@ -13,6 +13,12 @@ base_enable_backports: false
 # if a supported Debian release is detected by ansible
 base_enable_elts: true
 
+# Start, enable and restart the ntp daemon
+# Sometimes (like in checkrun or in ansible molecule) we do not want to start
+# the service.
+#
+base_ntp_enable: true
+
 # Set the ntp package to be installed (e.g. chrony or systemd-timesyncd).
 # If no ntp package should be installed set an empty string (base_ntp_package: '')
 #

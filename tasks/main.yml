@@ -76,12 +76,14 @@
     group: root
   when:
     base_ntp_package == "chrony"
-  notify: chrony restart
+  notify: ntp daemon restart
 
-- name: Make sure ntp service is started
+- name: Make sure ntp service is started + enabled
   service:
     name: "{{ base_ntp_package }}"
     state: started
+    enabled: true
+  when: base_ntp_enable | bool
 
 - name: Ensure extended base Debian package selection is installed (for VMs)
   apt:
