@@ -39,8 +39,7 @@
       - man-db
       - moreutils
       - needrestart
-      # Do not install, because proxmox conflicts with this package
-      # - netcat-openbsd
+      - netcat-openbsd
       - parted
       - psmisc
       - screen
