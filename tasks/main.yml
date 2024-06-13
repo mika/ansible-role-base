@@ -42,6 +42,7 @@
       - netcat-openbsd
       - parted
       - psmisc
+      - rsync
       - screen
       - socat
       - tmux
