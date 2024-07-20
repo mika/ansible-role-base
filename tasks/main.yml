@@ -28,6 +28,7 @@
       - acl
       - apt-dater-host
       - aptitude
+      - ca-certificates
       - curl
       - dbus
       - etckeeper
@@ -35,6 +36,7 @@
       - git
       - htop
       - iotop
+      - jq
       - ldnsutils
       - man-db
       - moreutils
@@ -48,7 +50,9 @@
       - tmux
       - unzip
       - vim
+      - wget
       - zsh
+      - zstd
     state: present
 
 - name: Install apt-transport-https (for Debian/stretch)
