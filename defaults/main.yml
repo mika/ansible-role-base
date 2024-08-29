@@ -3,7 +3,7 @@
 
 # The Debian mirror which is used in the sources.list file
 #
-base_debian_mirror: http://deb.debian.org/debian
+base_debian_mirror: https://deb.debian.org/debian
 
 # Debian backports are disabled by default
 #
