@@ -13,6 +13,11 @@ base_enable_backports: false
 # if a supported Debian release is detected by ansible
 base_enable_elts: true
 
+# Get Debian updates before a point release is made, see
+# https://www.debian.org/doc/manuals/debian-reference/ch02.en.html#_updates_and_backports
+# Enabled by default.
+base_enable_stable_updates: true
+
 # Start, enable and restart the ntp daemon
 # Sometimes (like in checkrun or in ansible molecule) we do not want to start
 # the service.
