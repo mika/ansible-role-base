@@ -3,7 +3,7 @@
 
 # The Debian mirror which is used in the sources.list file
 #
-base_debian_mirror: http://deb.debian.org/debian
+base_debian_mirror: https://deb.debian.org/debian
 
 # Debian backports are disabled by default
 #
@@ -12,6 +12,11 @@ base_enable_backports: false
 # Debian Extended Long Term Support repository is enabled by default,
 # if a supported Debian release is detected by ansible
 base_enable_elts: true
+
+# Get Debian updates before a point release is made, see
+# https://www.debian.org/doc/manuals/debian-reference/ch02.en.html#_updates_and_backports
+# Enabled by default.
+base_enable_stable_updates: true
 
 # Start, enable and restart the ntp daemon
 # Sometimes (like in checkrun or in ansible molecule) we do not want to start

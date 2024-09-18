@@ -15,7 +15,7 @@
   when:
     - base_enable_elts is defined
     - base_enable_elts == true
-    - ansible_distribution_release == "wheezy" or ansible_distribution_release == "jessie" or ansible_distribution_release == "stretch"
+    - ansible_distribution_release == "wheezy" or ansible_distribution_release == "jessie" or ansible_distribution_release == "stretch" or ansible_distribution_release == "buster"
 - name: Provide /etc/apt/sources.list
   template: src=templates/apt/sources.list.j2 dest=/etc/apt/sources.list owner=root group=root mode=0644
   notify: apt-get update

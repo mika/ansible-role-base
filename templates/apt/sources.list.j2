@@ -10,10 +10,14 @@ deb http://archive.debian.org/debian jessie main contrib non-free
 # NOTE: EOL since 2020-07-18 (main), 2022-07-01 (LTS), currently covered only by ELTS (until 2027-06-30)
 deb http://archive.debian.org/debian stretch main contrib non-free
 {% elif ansible_distribution_release == 'buster' %}
-# NOTE: EOL since 2022-09-10, currently covered by LTS (until 2024-06-30) + ELTS
+# NOTE: EOL since 2022-09-10 (main), 2024-06-30 (LTS), currently covered only by ELTS (until 2029-06-30)
 deb http://archive.debian.org/debian buster main contrib non-free
 {% elif ansible_distribution_release == 'bullseye' %}
-deb {{ base_debian_mirror }} {{ ansible_distribution_release }} main contrib non-free
+# NOTE: EOL since 2024-08-14 (main), currently covered by LTS (until 2026-08-31) + ELTS (until 2031-06-30)
+deb {{ base_debian_mirror }} bullseye main contrib non-free
+{% elif ansible_distribution_release == 'bookworm' %}
+# NOTE: supported until 2026-06-10 (main), 2028-06-30 (LTS) + 2033-06-30 (ELTS)
+deb {{ base_debian_mirror }} bookworm main contrib non-free-firmware
 {% else %}{# ansible_distribution_release == 'wheezy' #}
 deb {{ base_debian_mirror }} {{ ansible_distribution_release }} main contrib non-free-firmware
 {% endif %}{# ansible_distribution_release == 'wheezy' #}
@@ -27,10 +31,11 @@ deb http://archive.debian.org/debian jessie-backports main contrib non-free
 # WARN: EOL since 2020-07-18 (main)
 deb http://archive.debian.org/debian stretch-backports main contrib non-free'
 {% elif ansible_distribution_release == 'buster' %}
-# WARN: EOL since 2024-03-23 (main)
+# WARN: EOL since 2022-08-01 (main)
 deb http://archive.debian.org/debian buster-backports main contrib non-free
 {% elif ansible_distribution_release == 'bullseye' %}
-deb {{ base_debian_mirror }} {{ ansible_distribution_release }}-backports main contrib non-free
+# WARN: EOL since 2024-08 (main)
+deb {{ base_debian_mirror }} bullseye-backports main contrib non-free
 {% else %}{# ansible_distribution_release == 'wheezy' #}
 deb {{ base_debian_mirror }} {{ ansible_distribution_release }}-backports main contrib non-free-firmware
 {% endif %}{# ansible_distribution_release == 'wheezy' #}
@@ -45,22 +50,38 @@ deb http://archive.debian.org/debian-security jessie/updates main contrib non-fr
 # NOTE: EOL since 2020-07-18 (main), 2022-07-01 (LTS), currently covered only by ELTS (until 2027-06-30)
 deb http://archive.debian.org/debian-security stretch/updates main contrib non-free
 {% elif ansible_distribution_release == 'buster' %}
-# NOTE: EOL since 2022-09-10, currently covered by LTS (until 2024-06-30) + ELTS
-deb http://security.debian.org buster/updates main contrib non-free
+# NOTE: EOL since 2022-09-10 (main), 2024-06-30 (LTS), currently covered only by ELTS (until 2029-06-30)
+deb https://security.debian.org buster/updates main contrib non-free
 {% elif ansible_distribution_release == 'bullseye' %}
-deb http://security.debian.org/debian-security bullseye-security main contrib non-free
+# NOTE: EOL since 2024-08-14 (main), currently covered by LTS (until 2026-08-31) + ELTS (until 2031-06-30)
+deb https://security.debian.org/debian-security bullseye-security main contrib non-free
+{% elif ansible_distribution_release == 'bookworm' %}
+# NOTE: supported until 2026-06-10 (main), 2028-06-30 (LTS) + 2033-06-30 (ELTS)
+deb https://security.debian.org/debian-security bookworm-security main contrib non-free-firmware
 {% else %}{# ansible_distribution_release == 'wheezy' #}
-deb http://security.debian.org/debian-security {{ ansible_distribution_release }}-security main contrib non-free-firmware
+deb https://security.debian.org/debian-security {{ ansible_distribution_release }}-security main contrib non-free-firmware
 {% endif %}{# ansible_distribution_release == 'wheezy' #}
+{% if base_enable_stable_updates %}
+{% if ansible_distribution_release == 'bullseye' %}
+# NOTE: EOL since 2024-08-14 (main), currently covered by LTS (until 2026-08-31) + ELTS (until 2031-06-30)
+deb {{ base_debian_mirror }} bullseye-updates main contrib non-free-firmware
+{% elif ansible_distribution_release == 'bookworm' %}
+# NOTE: supported until 2026-06-10 (main), 2028-06-30 (LTS) + 2033-06-30 (ELTS)
+deb {{ base_debian_mirror }} bookworm-updates main contrib non-free
+{% endif %}{# ansible_distribution_release == 'bullseye' #}
+{% endif %}{# base_enable_stable_updates #}
 {% if base_enable_elts %}
 {% if ansible_distribution_release == 'wheezy' %}
 # WARN: Extended Long Term Support - EOL since 2020-06-30 (see https://wiki.debian.org/LTS/Extended)
-deb http://deb.freexian.com/extended-lts wheezy-lts main contrib non-free
+deb https://deb.freexian.com/extended-lts wheezy-lts main contrib non-free
 {% elif ansible_distribution_release == 'jessie' %}
 # Extended Long Term Support (ELTS, until 2025-06-30, see https://wiki.debian.org/LTS/Extended)
-deb http://deb.freexian.com/extended-lts jessie-lts main contrib non-free
+deb https://deb.freexian.com/extended-lts jessie-lts main contrib non-free
 {% elif ansible_distribution_release == 'stretch' %}
 # Extended Long Term Support (ELTS, until 2027-06-30, see https://wiki.debian.org/LTS/Extended)
-deb http://deb.freexian.com/extended-lts stretch-lts main contrib non-free
+deb https://deb.freexian.com/extended-lts stretch-lts main contrib non-free
+{% elif ansible_distribution_release == 'buster' %}
+# Extended Long Term Support (ELTS, until 2029-06-30, see https://wiki.debian.org/LTS/Extended)
+deb https://deb.freexian.com/extended-lts buster-lts main contrib non-free
 {% endif %}{# ansible_distribution_release == 'wheezy' #}
 {% endif %}{# base_enable_elts #}
